@@ -33,12 +33,6 @@ def getInstances(name):
 		yield getMP(l[:nBMac])
 		l = l[nBMac:]
 
-opt_law = [666, 655, 597, 590, 593, 926, 890, 863, 951, 958, 1222, 1039, 1150, 1292, 1207, 945, 784, 848, 842, 902, 1046, 927, 1032, 935, 977, 1218, 1235, 1216, 1152, 1355, 1784, 1850, 1719, 1721, 1888, 1268, 1397, 1196, 1233, 1233]
-# yamada optima aren't the proven optimal, but the best found in the paper
-opt_yam = [967, 945, 951, 1052]
-law = tuple(getInstances('lawrence'))
-yam = tuple(getInstances('yamada'))
-
 
 def mainBidir(begin=0, end=40, it=5, c=3, inst='law'):
 	if inst == 'law':
@@ -109,11 +103,19 @@ def mainTabu(begin=0, end=40, it=5, c=3):
 		Delta = (solution_best-optimum)/optimum*100
 		avg_Z.append(Delta)
 		dt = sum(dt)/len(dt)
-		#print("LA%02d: %d (opt: %d), Z=%02f"%(i+begin+1, solution_best, optimum , Delta))
+		print("LA%02d: %d (opt: %d), Z=%02f"%(i+begin+1, solution_best, optimum , Delta))
 		# LATEX printing
-		print("LA%02d & %d & %d & %d & %d & %.02f & %d & %.04f \\\\" % (i+begin+1, n,m, optimum, solution_best, Delta, es[r][0], dt))
+		#print("LA%02d & %d & %d & %d & %d & %.02f & %d & %.04f \\\\" % (i+begin+1, n,m, optimum, solution_best, Delta, es[r][0], dt))
 
 	return avg_Z
+
+
+# absolut minima for lawrence instances
+opt_law = [666, 655, 597, 590, 593, 926, 890, 863, 951, 958, 1222, 1039, 1150, 1292, 1207, 945, 784, 848, 842, 902, 1046, 927, 1032, 935, 977, 1218, 1235, 1216, 1152, 1355, 1784, 1850, 1719, 1721, 1888, 1268, 1397, 1196, 1233, 1233]
+# yamada optima aren't the proven optimal, but these are the best found in the paper
+opt_yam = [967, 945, 951, 1052]
+law = tuple(getInstances('data/lawrence'))
+yam = tuple(getInstances('data/yamada'))
 
 def main():
 	mainBidir(c=2, it=10)
